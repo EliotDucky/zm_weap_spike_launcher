@@ -169,17 +169,15 @@ function upgradedSpikeWatcher(watcher, owner){
 	b_valid_poi = zm_utility::check_point_in_enabled_zone(self.origin, undefined, undefined);
 	v_valid_poi = self move_valid_poi_to_navmesh(b_valid_poi);
 	if(v_valid_poi != (0, 0, 0)){
-		IPrintLnBold("valid");
 		spike_poi = Spawn("script_origin", v_valid_poi);
 		spike_poi zm_utility::create_zombie_point_of_interest(
 			level.monkey_attract_dist,
 			level.num_monkey_attractors,
 			10000);
-		spike_poi.attract_to_origin = true;
 		spike_poi thread zm_utility::create_zombie_point_of_interest_attractor_positions(
 			4, level.monkey_attract_dist_diff
 		);
-		spike_poi thread zm_utility::wait_for_attractor_positions_complete();
+		//spike_poi thread zm_utility::wait_for_attractor_positions_complete();
 		array::add(level.spike_pois, spike_poi);
 	}
 }
@@ -225,11 +223,9 @@ function endSpikeAttractionOnDeath(attacker, weapon, target){
 	self thread weaponobjects::spikeDetonate(attacker, weapon, target);
 	foreach(poi in level.spike_pois){
 		//NOT WORKING AT THE MOMENT
-		IPrintLnBold(poi.origin);
-		poi.attract_to_origin = false;
 		poi zm_utility::deactivate_zombie_point_of_interest();
+		poi notify("death");
 		wait(0.05);
-		poi Hide();
 		poi Delete();
 	}
 	level.spike_pois = [];
