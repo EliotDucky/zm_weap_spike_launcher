@@ -18,6 +18,8 @@
 
 #define SPIKE_POI_RANK				800
 
+#precache("string", "PRESS ^3[{+melee}]^7 TO DETONATE SPIKE CHARGE");
+
 #namespace zm_hotel_spike_launcher;
 
 function autoexec __init__system__(){
