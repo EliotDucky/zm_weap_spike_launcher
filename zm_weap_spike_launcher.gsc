@@ -44,6 +44,8 @@ function __main__(){
 //Call On: Player
 function spikeLauncherWatcher(){
 	self weaponobjects::createSpikeLauncherWatcher("spike_launcher");
+	spike_watcher = self weaponobjects::createWeaponObjectWatcher("spike_charge", self.team);
+	spike_watcher.onSpawn = &spikeWatcher;
 }
 
 //Call On: Player
@@ -233,6 +235,12 @@ function endSpikeAttractionOnDeath(attacker, weapon, target){
 	}
 	self notify("death");
 	level.spike_pois = [];
+}
+
+//Call On: The spawned bolt
+function spikeWatcher(watcher, owner){
+	IPrintLn("spike_fired");
+	self thread detonateAfterTime(SPIKE_CHARGE_TIME, owner);
 }
 
 //Call On: spawned spike
