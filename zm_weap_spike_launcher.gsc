@@ -13,7 +13,7 @@
 #define	POI_MAX_RADIUS				200
 #define	POI_HALF_HEIGHT				200
 #define	POI_INNER_SPACING			2
-#define	POI_RADIUS_FROM_EDGES		16
+#define	POI_RADIUS_FROM_EDGES		32
 #define POI_HEIGHT 					200
 
 #define SPIKE_POI_RANK				800
@@ -225,7 +225,6 @@ function endSpikeAttractionOnDeath(attacker, weapon, target){
 		//NOT WORKING AT THE MOMENT
 		poi zm_utility::deactivate_zombie_point_of_interest();
 		poi notify("death");
-		wait(0.05);
 		poi Delete();
 	}
 	level.spike_pois = [];
