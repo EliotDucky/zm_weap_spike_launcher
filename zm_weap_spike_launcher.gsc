@@ -17,6 +17,7 @@
 #define POI_HEIGHT 					200
 
 #define SPIKE_POI_RANK				800
+#define SPIKE_CHARGE_TIME			15
 
 #precache("string", "PRESS ^3[{+melee}]^7 TO DETONATE SPIKE CHARGE");
 
@@ -63,7 +64,6 @@ function spikeLauncherTutorialWatcher(){
 //Call On: Player
 function detonateWaitTill(wpn_spike_launcher){
 	self endon("death");
-	self endon("detonate");
 	self waittill("weapon_fired", w_current);
 	if(w_current == wpn_spike_launcher){
 		wait(2);
@@ -141,6 +141,8 @@ function upgradedSpikesDetonating(watcher){
 
 //Call On: Player
 function upgradedSpikeLauncherUpgradedItemCountChanged(watcher){
+	self notify("uSLUICC");
+	self endon("uSLUICC");
 	self endon("death");
 	last_item_count = undefined;
 	while(true){
@@ -159,7 +161,9 @@ function upgradedSpikeLauncherUpgradedItemCountChanged(watcher){
 
 //Call On: The spawned bolt
 function upgradedSpikeWatcher(watcher, owner){
+	IPrintLn("spike_fired");
 	self endon("death");
+	self thread detonateAfterTime(SPIKE_CHARGE_TIME, owner);
 	self util::waitTillNotMoving();
 	//the above filters only those spawned on a surface in
 
@@ -227,5 +231,17 @@ function endSpikeAttractionOnDeath(attacker, weapon, target){
 		poi notify("death");
 		poi Delete();
 	}
+	self notify("death");
 	level.spike_pois = [];
+}
+
+//Call On: spawned spike
+function detonateAfterTime(time, player){
+	player endon("detonate");
+	IPrintLn("called");
+	self util::waitTillNotMoving();
+	wait(time);
+	IPrintLn("detonate");
+	//self endSpikeAttractionOnDeath();
+	player notify("detonate");
 }
