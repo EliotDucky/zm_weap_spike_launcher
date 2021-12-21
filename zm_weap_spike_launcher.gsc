@@ -21,11 +21,11 @@
 
 #precache("string", "PRESS ^3[{+melee}]^7 TO DETONATE SPIKE CHARGE");
 
-#namespace zm_hotel_spike_launcher;
+#namespace zm_weap_spike_launcher;
 
 function autoexec __init__system__(){
 	_arr = undefined;
-	system::register("zm_hotel_spike_launcher", &__init__, &__main__, _arr);
+	system::register("zm_weap_spike_launcher", &__init__, &__main__, _arr);
 }
 
 function __init__(){
@@ -39,6 +39,15 @@ function __main__(){
 	DEFAULT(level.monkey_attract_dist, 1536);
 	DEFAULT(level.num_monkey_attractors, 96);
 	DEFAULT(level.monkey_attract_dist_diff, 45);
+	DEFAULT(level.spike_attract_dist, level.monkey_attract_dist);
+	DEFAULT(level.num_spike_attractors, level.num_monkey_attractors);
+	DEFAULT(level.spike_attract_dist_diff, level.monkey_attract_dist_diff);
+}
+
+function setSpikeAttractDist(dist){
+	if(isdefined(dist) && dist >= 0){
+		level.spike_attract_dist = dist;
+	}
 }
 
 //Call On: Player
@@ -177,11 +186,11 @@ function upgradedSpikeWatcher(watcher, owner){
 	if(v_valid_poi != (0, 0, 0)){
 		spike_poi = Spawn("script_origin", v_valid_poi);
 		spike_poi zm_utility::create_zombie_point_of_interest(
-			level.monkey_attract_dist,
-			level.num_monkey_attractors,
+			level.spike_attract_dist,
+			level.num_spike_attractors,
 			10000);
 		spike_poi thread zm_utility::create_zombie_point_of_interest_attractor_positions(
-			4, level.monkey_attract_dist_diff
+			4, level.spike_attract_dist_diff
 		);
 		//spike_poi thread zm_utility::wait_for_attractor_positions_complete();
 		array::add(level.spike_pois, spike_poi);
