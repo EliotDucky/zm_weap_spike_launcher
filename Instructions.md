@@ -15,9 +15,11 @@ scripts/zm/weapons/zm_weap_spike_launcher/zm_weap_spike_launcher.gsc
 weapon,spike_launcher_zm
 weapon,spike_charge_zm
 scriptparsetree,scripts/zm/weapons/zm_weap_spike_launcher/zm_weap_spike_launcher.gsc
+scriptparsetree,scripts/zm/weapons/zm_weap_spike_launcher/spike_charge_upg.csc
 weapon,spike_launcher_upgraded_zm
 weapon,spike_charge_upgraded_zm
 fx,weapon/fx_light_spike_launcher
+fx,weapon/fx_light_spike_launcher_upg
 ```
 
 ### Sound Zone Config
@@ -45,10 +47,12 @@ fx,weapon/fx_light_spike_launcher
 
 ```
 #using scripts\shared\weapons\spike_charge;
+#using scripts\zm\weapons\zm_weap_spike_launcher\spike_charge_upg;
 ```
 
 ### FX
 
 ```
 weapon/fx_light_spike_launcher.efx
+weapon/fx_light_spike_launcher_upg.efx
 ```
