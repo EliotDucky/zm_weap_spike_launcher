@@ -101,3 +101,7 @@ end
 ```
 
 Make sure that all spike lua/luac files are in the correct directories (see the example `.zpkg`)
+
+### Images
+
+Setup the UIE images in APE under the same name as in the `.zpkg`. Ensure that mipmap is disabled.
