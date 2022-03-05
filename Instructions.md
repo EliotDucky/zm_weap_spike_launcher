@@ -21,7 +21,7 @@ include,spike_launcher_zm
 
 ### Sound Zone Config
 
-```c
+```gsc
  {
  "Type" : "ALIAS",
  "Name" : "t7_spike_launcher",
@@ -42,7 +42,7 @@ include,spike_launcher_zm
 
 ### Mapname.csc
 
-```cpp
+```gscpp
 #using scripts\shared\weapons\spike_charge;
 #using scripts\zm\weapons\zm_weap_spike_launcher\spike_charge_upg;
 
